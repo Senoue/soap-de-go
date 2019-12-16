@@ -70,7 +70,7 @@ func populateRequest() *Request {
 	req := Request{}
 	req.Key = "12345678"
 	req.ID = "SENOUE"
-	req.Password = "Hiromasa"
+	req.Password = "Password"
 	return &req
 }
 
