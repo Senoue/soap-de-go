@@ -1,2 +1,9 @@
 # soap-de-go
-Go で SOAP 通信のサンプルです
+
+This sample implements SOAP communication with Go standard package only.
+
+```
+$go run main.go
+```
+
+
