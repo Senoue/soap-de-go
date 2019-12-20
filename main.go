@@ -41,7 +41,7 @@ var getTemplate = `
     <Credentials>
         <id>{{.ID}}</id>
         <password>{{.Password}}</password>
-	</Credentials>
+    </Credentials>
 	<Identity>
         <key>{{.Key}}</key>
    </Identity>
@@ -91,14 +91,6 @@ func generateSOAPRequest(req *Request) (*http.Request, error) {
 		return nil, err
 	}
 
-	buffer := &bytes.Buffer{}
-	encoder := xml.NewEncoder(buffer)
-	err = encoder.Encode(doc.String())
-	if err != nil {
-		log.Printf("encoder.Encode error. %s ", err.Error())
-		return nil, err
-	}
-	log.Println(doc)
 	r, err := http.NewRequest(http.MethodPost, "http://localhost:8060/resp", doc)
 	r.Header.Add("Content-Type", "application/xml; charset=utf-8")
 	if err != nil {
