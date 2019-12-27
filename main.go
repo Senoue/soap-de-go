@@ -24,7 +24,7 @@ type Response struct {
 
 // PostするXML
 type Post struct {
-	XMLName     xml.Name `Request`
+	XMLName     xml.Name `xml:"Request"`
 	Credentials struct {
 		ID       string `xml:"id"`
 		Password string `xml:"password"`
@@ -42,9 +42,9 @@ var getTemplate = `
         <id>{{.ID}}</id>
         <password>{{.Password}}</password>
     </Credentials>
-	<Identity>
+    <Identity>
         <key>{{.Key}}</key>
-   </Identity>
+    </Identity>
 </Request>`
 
 // SOAP アクセス
@@ -77,7 +77,7 @@ func populateRequest() *Request {
 // SOAP リクエストの作成
 func generateSOAPRequest(req *Request) (*http.Request, error) {
 	// テンプレートを使ってXMLを作成
-	template, err := template.New("InputRequest").Parse(getTemplate)
+	temp, err := template.New("InputRequest").Parse(getTemplate)
 
 	if err != nil {
 		log.Printf("Error while marshling object. %s ", err.Error())
@@ -85,7 +85,7 @@ func generateSOAPRequest(req *Request) (*http.Request, error) {
 	}
 
 	doc := &bytes.Buffer{}
-	err = template.Execute(doc, req)
+	err = temp.Execute(doc, req)
 	if err != nil {
 		log.Printf("template.Execute error. %s ", err.Error())
 		return nil, err
